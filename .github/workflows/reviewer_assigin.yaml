@@ -1,0 +1,14 @@
+name: Helm Diff
+
+on:
+  pull_request:
+    types: [opened,reopened,review_request_removed]
+
+jobs:
+  reviewer-assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: reviewer-assign
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
