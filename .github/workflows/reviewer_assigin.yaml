@@ -29,4 +29,3 @@ jobs:
           echo ${{ toJson(github.event) }}
           echo 'PR Num: ${{ github.event.number }}'
           gh pr edit ${{ github.event.number }} --add-reviewer momiage-man
-
