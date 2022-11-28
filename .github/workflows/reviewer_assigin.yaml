@@ -14,7 +14,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo ${{ toJson(github) }}
+          echo ${{ toJson(github.event) }}
           echo 'PR Num: ${{ github.event.head.number }}'
           gh pr edit ${{ github.event.head.number }} --add-reviewer mominosin
   reviewer-re-assign:
@@ -25,7 +25,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo ${{ toJson(github) }}
+          echo ${{ toJson(github.event) }}
           echo 'PR Num: ${{ github.event.head.number }}'
           gh pr edit ${{ github.event.head.number }} --add-reviewer mominosin
 
