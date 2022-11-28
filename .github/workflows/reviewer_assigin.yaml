@@ -11,21 +11,24 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: reviewer-assign
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          echo ${{ toJson(github.event) }}
-          echo 'PR Num: ${{ github.event.number }}'
-          gh pr edit ${{ github.event.number }} --add-reviewer momiage-man
+          echo "PR Num: $PR_NUMBER"
+          gh pr edit $PR_NUMBER --add-reviewer momiage-man
   reviewer-re-assign:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: reviewer-assign
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          echo ${{ toJson(github.event) }}
-          echo 'PR Num: ${{ github.event.number }}'
-          gh pr edit ${{ github.event.number }} --add-reviewer momiage-man
+
+          echo "PR Num: $PR_NUMBER"
+          gh pr edit $PR_NUMBER --add-reviewer momiage-man
