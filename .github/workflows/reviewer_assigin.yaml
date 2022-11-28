@@ -29,6 +29,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
+
           echo "PR Num: $PR_NUMBER"
           gh pr edit $PR_NUMBER --add-reviewer momiage-man
-
