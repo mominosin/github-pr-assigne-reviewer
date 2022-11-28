@@ -15,8 +15,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${{ toJson(github) }}
-          echo 'PR Num: ${{ github.event.number }}'
-          gh pr edit ${{ github.event.number }} --add-reviewer mominosin
+          echo 'PR Num: ${{ github.event.head.number }}'
+          gh pr edit ${{ github.event.head.number }} --add-reviewer mominosin
   reviewer-re-assign:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
@@ -26,6 +26,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${{ toJson(github) }}
-          echo 'PR Num: ${{ github.event.number }}'
-          gh pr edit ${{ github.event.number }} --add-reviewer mominosin
+          echo 'PR Num: ${{ github.event.head.number }}'
+          gh pr edit ${{ github.event.head.number }} --add-reviewer mominosin
 
