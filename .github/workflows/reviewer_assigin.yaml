@@ -1,8 +1,10 @@
-name: Helm Diff
+name: Auto Assgin Reviewer
 
 on:
   pull_request:
-    types: [opened,reopened,review_request_removed]
+    types: [opened,reopened]
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   reviewer-assign:
@@ -11,4 +13,19 @@ jobs:
       - name: reviewer-assign
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo ${{ toJson(github) }}
+          echo 'PR Num: ${{ github.event.number }}'
+          gh pr edit ${{ github.event.number }} --add-reviewer mominosin
+  reviewer-re-assign:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - name: reviewer-assign
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo ${{ toJson(github) }}
+          echo 'PR Num: ${{ github.event.number }}'
+          gh pr edit ${{ github.event.number }} --add-reviewer mominosin
 
